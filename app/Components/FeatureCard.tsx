@@ -59,35 +59,35 @@ const Index = () => {
                   <span className="text-primary font-semibold">crypgo</span>
                 </div>
                 
-                <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">
+                <h1 className="text-4xl md:text-4xl font-bold mb-8 text-center">
                   Features of the crypto framer mobile application
                 </h1>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                   {/* Feature Items */}
                   <div className="feature-item flex items-center">
-                    <div className="feature-icon  mr-2">
-                      <CircleDollarSign size={18}/>
+                    <div className="feature-icon bg-light-success  mr-2  rounded-full">
+                      <CircleDollarSign size={18} className='text-primary'/>
                     </div>
-                    <div className="font-medium">Blockchain Consulting With Your Business</div>
+                    <div className="font-light">Blockchain Consulting With Your Business</div>
                   </div>
                   <div className="feature-item flex items-center">
-                    <div className="feature-icon mr-2">
-                      <Globe size={18} />
+                    <div className="feature-icon mr-2 bg-light-sccuess rounded-full ">
+                      <Globe size={18}  className='text-primary'/>
                     </div>
-                    <div className="font-medium">Kickstart your crypto website today</div>
+                    <div className="font-light">Kickstart your crypto own website today</div>
                   </div>
                   <div className="feature-item flex items-center">
-                    <div className="feature-icon mr-2">
-                      <LineChart size={18} />
+                    <div className="feature-icon mr-2 bg-light-sccuess rounded-full">
+                      <LineChart size={18} className='text-primary'/>
                     </div>
-                    <div className="font-medium">Designed for crypto trading platforms</div>
+                    <div className="font-light">Designed for crypto trading platforms</div>
                   </div>
                   <div className="feature-item flex items-center">
-                    <div className="feature-icon mr-2">
-                      <Database size={18} />
+                    <div className="feature-icon mr-2 bg-light-sccuess rounded-full">
+                      <Database size={18} className='text-primary'/>
                     </div>
-                    <div className="font-medium">Launch your blockchain platform today</div>
+                    <div className="font-light">Launch your blockchain platform today</div>
                   </div>
                 </div>
               </div>
@@ -95,13 +95,13 @@ const Index = () => {
             
             <div className="flex justify-center lg:justify-end items-center ">
               {/* Portfolio Card */}
-              <div className="w-full max-w-md rounded-lg  bg-gray-500/30 p-6 border">
+              <div className="w-full max-w-md rounded-lg  bg-dark4/30 opacity-10 p-6 border">
                 <div className="flex justify-between items-center mb-6">
                   <div className="text-lg font-medium">Your portfolio is up</div>
                   <div className="text-lg font-bold text-primary">2.31%</div>
                 </div>
                 
-                <div className="space-y-0">
+                <div className="space-y-2">
                   {/* Bitcoin */}
                   <div className="crypto-card flex items-center justify-between">
                     <div className="flex items-center gap-3">

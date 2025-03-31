@@ -8,7 +8,7 @@ export default function Custom404() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-dark2">
       <Image src='./404.svg'  width={300} height={100} alt=""></Image>
       <p className="mt-4 px-4 text-2xl text-gray-600">
-        Oops! The page you're looking for doesn't exist.
+        Oops! The page you&apos;re looking for doesn&apos;t exist.
       </p>
       <Link 
         href="/" 

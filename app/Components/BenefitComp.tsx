@@ -126,8 +126,8 @@ export default function BenefitComp() {
             {/* Refinement */}
             <div className="text-left md:ml-4">
               <div className="flex justify-start mb-2">
-                <div className="bg-gray-800 w-12 h-12 rounded-full flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="bg-light-success w-12 h-12 rounded-full flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                   </svg>
                 </div>
@@ -139,8 +139,8 @@ export default function BenefitComp() {
             {/* Scale and Support */}
             <div className="text-left md:ml-4">
               <div className="flex justify-start mb-2">
-                <div className="bg-gray-800 w-12 h-12 rounded-full flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="bg-light-success w-12 h-12 rounded-full flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </div>

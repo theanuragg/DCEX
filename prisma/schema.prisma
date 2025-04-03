@@ -22,7 +22,7 @@ model User {
   provider Provider
   solwalletId String?
   solwallet SolWallet []
-  inrWalletId String 
+  inrWalletId String ?
   inrWallet InrWallet[] 
 }
 

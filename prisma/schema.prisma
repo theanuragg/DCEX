@@ -18,6 +18,8 @@ model User {
   email String @unique
   password String 
   username String @unique
+  sub  String @default("")
+  provider Provider
   solwalletId String?
   solwallet SolWallet []
   inrWalletId String 
@@ -38,4 +40,8 @@ model InrWallet {
   userId  String @unique
   user User @relation(fields: [userId], references: [id])
 
+}
+
+enum Provider {
+  Google
 }

@@ -15,8 +15,8 @@ datasource db {
 
 model User {
   id  String @id  @default(uuid()) @unique
-  email String @unique
-  password String 
+  email String? @unique
+  password String?
   username String @unique
   sub  String @default("")
   provider Provider

@@ -29,7 +29,9 @@ model User {
 model SolWallet {
   id  String @id @default(uuid())
   publickey String
-  privateKey String
+  share1    String
+  share2    String
+  share3    String 
   userId String @unique
   user  User @relation(fields: [userId], references: [id])
 }

@@ -1,30 +1,30 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import { signIn } from "next-auth/react";
+import { NextAuthOptions } from "next-auth";
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
-  ], 
+  ],
   callbacks: {
-    async signIn({user, email, account, profile, }) {
-      if (account?.providers === "google"){
-        const email = user.email
-         if(email!){
-          return false
-         }
-         else{
-          return true
-         }
+    async signIn({ user, account }) {
+      if (account?.provider === "google") {
+        const email = user.email;
+        if (!email) {
+          return false; 
+        }
       }
-    }
-  }
+      return true; 
+    },
+     async redirect() {
+      return "/Dashboard"; 
+    },
+  },
 };
 
 const handler = NextAuth(authOptions);
 
-export const GET = handler;
-export const POST = handler;
+export { handler as GET, handler as POST };

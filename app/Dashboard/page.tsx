@@ -6,7 +6,7 @@ export default function  Dashbaord ()  {
 
     return(
         <>
-         <div className='bg-red-900'> hey Dashbaord</div>
+         <div className='bg-primary'> hey Dashbaord</div>
         </>
     )
 }

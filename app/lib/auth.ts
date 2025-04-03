@@ -3,6 +3,7 @@ import { Keypair } from "@solana/web3.js";
 import { Session } from "next-auth";
 import prisma from "../db";
 import secrets from "secrets.js-grempe";
+import type { NextAuthOptions } from "next-auth";
 
 export interface AuthSession extends Session {
   user: {
@@ -12,51 +13,55 @@ export interface AuthSession extends Session {
   };
 }
 
-export const authconfig = {
+export const Authconfig: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
-  Provider: [
+  providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
     }),
   ],
   callbacks: {
-    session: ({
-      session,
-      token,
-    }: {
-      session: AuthSession;
-      token: { uuid?: string };
-    }): AuthSession => {
-      const newSession: AuthSession = session;
-      if (newSession.user && token.uuid) {
-        newSession.user.uuid = token.uuid ?? "";
+    session(params: any): any {
+      const { session, token } = params;
+      
+      if (session?.user && token?.uuid) {
+        return {
+          ...session,
+          user: {
+            ...session.user,
+            uuid: token.uuid
+          }
+        };
       }
-      return newSession;
+      
+      return session;
     },
-    async jwt({
-      token,
-      account,
-    }: {
-      token: { uuid?: string };
-      account: { providersAccoundId?: string };
-    }) {
-      const user = await prisma.user.findFirst({
-        where: {
-          sub: account?.providersAccoundId ?? "",
-        },
-      });
-      if (user) {
-        token.uuid = user.id;
+    async jwt(params: any): Promise<any> {
+      const { token, account } = params;
+      
+      if (account?.providerAccountId) {
+        const user = await prisma.user.findFirst({
+          where: {
+            sub: account.providerAccountId,
+          },
+        });
+        if (user) {
+          token.uuid = user.id;
+        }
       }
+      
       return token;
     },
-    async signIn({ user, account }: { user: { email: string }; account: { provider?: string; providersAccoundId?: string } }) {
-      if (account?.provider === "google") {
+    async signIn(params: any): Promise<boolean> {
+      const { user, account } = params;
+      
+      if (!user?.email || !account?.provider) {
+        return false;
+      }
+      
+      if (account.provider === "google") {
         const email = user.email;
-        if (!email) {
-          return false;
-        }
         const userDb = await prisma.user.findFirst({
           where: {
             username: email,
@@ -68,35 +73,33 @@ export const authconfig = {
 
         const keypair = Keypair.generate();
         const publicKey = keypair.publicKey.toBase58();
-        const privateKey = Buffer.from(keypair.secretKey).toString("hex"); 
+        const privateKey = Buffer.from(keypair.secretKey).toString("hex");
 
-        
         const shares = secrets.share(privateKey, 3, 2);
 
-        
         await prisma.user.create({
           data: {
             username: email,
             provider: "Google",
-            sub: account.providersAccoundId,
+            sub: account.providerAccountId,
             solwallet: {
               create: {
                 publickey: publicKey,
-                share1: shares[0], 
-                share2: shares[1], 
-                share3: shares[2], 
+                share1: shares[0],
+                share2: shares[1],
+                share3: shares[2],
               },
             },
-            inrWallet:{
-                create:{
-                    balance: 0
-                }
-            }
+            inrWallet: {
+              create: {
+                balance: 0,
+              },
+            },
           },
         });
-        return true
+        return true;
       }
-      return false
+      return false;
     },
   },
 };

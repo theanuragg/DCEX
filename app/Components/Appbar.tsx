@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { PrimaryButton } from "./Button";
-import Image from "next/image";
 import Link from "next/link";
 
 export default function Appbar() {

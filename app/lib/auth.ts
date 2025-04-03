@@ -1,9 +1,11 @@
 import GoogleProvider from "next-auth/providers/google";
 import { Keypair } from "@solana/web3.js";
-import { Session } from "next-auth";
+import { Session, Account, User } from "next-auth";
+import { AdapterUser } from "next-auth/adapters";
 import prisma from "../db";
 import secrets from "secrets.js-grempe";
 import type { NextAuthOptions } from "next-auth";
+import type { JWT } from "next-auth/jwt";
 
 export interface AuthSession extends Session {
   user: {
@@ -11,6 +13,13 @@ export interface AuthSession extends Session {
     name: string;
     uuid: string;
   };
+}
+
+export interface AuthUser {
+  name?: string | null;
+  email?: string | null;
+  image?: string | null;
+  uuid: string;
 }
 
 export const Authconfig: NextAuthOptions = {
@@ -22,7 +31,7 @@ export const Authconfig: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    session(params: any): any {
+    session(params: { session: Session; token: JWT }): AuthSession {
       const { session, token } = params;
       
       if (session?.user && token?.uuid) {
@@ -30,14 +39,14 @@ export const Authconfig: NextAuthOptions = {
           ...session,
           user: {
             ...session.user,
-            uuid: token.uuid
-          }
-        };
+            uuid: token.uuid as string,
+          },
+        } as AuthSession;
       }
       
-      return session;
+      return session as AuthSession;
     },
-    async jwt(params: any): Promise<any> {
+    async jwt(params: { token: JWT; account: Account | null; user: User | AdapterUser }): Promise<JWT> {
       const { token, account } = params;
       
       if (account?.providerAccountId) {
@@ -53,7 +62,7 @@ export const Authconfig: NextAuthOptions = {
       
       return token;
     },
-    async signIn(params: any): Promise<boolean> {
+    async signIn(params: { user: User | AdapterUser; account: Account | null }): Promise<boolean> {
       const { user, account } = params;
       
       if (!user?.email || !account?.provider) {

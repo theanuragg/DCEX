@@ -2,7 +2,7 @@
 import { useState } from 'react';
 
 const FaqAccordion = () => {
-  const [openIndex, setOpenIndex] = useState(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const faqItems = [
     {
@@ -31,7 +31,7 @@ const FaqAccordion = () => {
     }
   ];
 
-  const toggleFaq = (index) => {
+  const toggleFaq = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 

@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image';
-import { ArrowRight, Clock, Shield, Smartphone } from 'lucide-react';
+import {  Clock, Shield, Smartphone } from 'lucide-react';
 
 export default function ServiceComp() {
   return (

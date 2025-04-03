@@ -29,10 +29,14 @@ const Hero = () => {
     if (tagRef.current) observer.observe(tagRef.current);
     if (headingRef.current) observer.observe(headingRef.current);
 
+    const currentPhoneRef = phoneRef.current;
+    const currentTagRef = tagRef.current;
+    const currentHeadingRef = headingRef.current;
+
     return () => {
-      if (phoneRef.current) observer.unobserve(phoneRef.current);
-      if (tagRef.current) observer.unobserve(tagRef.current);
-      if (headingRef.current) observer.unobserve(headingRef.current);
+      if (currentPhoneRef) observer.unobserve(currentPhoneRef);
+      if (currentTagRef) observer.unobserve(currentTagRef);
+      if (currentHeadingRef) observer.unobserve(currentHeadingRef);
     };
   }, []);
 

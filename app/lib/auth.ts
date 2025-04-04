@@ -1,5 +1,5 @@
 import GoogleProvider from "next-auth/providers/google";
-import { Keypair } from "@solana/web3.js";
+import { Keypair } from "@solana/kit";
 import { Session, Account, User } from "next-auth";
 import { AdapterUser } from "next-auth/adapters";
 import prisma from "../db";

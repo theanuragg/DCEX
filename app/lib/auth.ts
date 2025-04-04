@@ -1,5 +1,5 @@
 import GoogleProvider from "next-auth/providers/google";
-import { Keypair } from "@solana/kit";
+import { generateKeyPair } from "@solana/web3.js";
 import { Session, Account, User } from "next-auth";
 import { AdapterUser } from "next-auth/adapters";
 import prisma from "../db";
@@ -80,11 +80,13 @@ export const Authconfig: NextAuthOptions = {
           return true;
         }
 
-        const keypair = Keypair.generate();
-        const publicKey = keypair.publicKey.toBase58();
-        const privateKey = Buffer.from(keypair.secretKey).toString("hex");
+        const keypair = await generateKeyPair();
+        const publicKey = keypair.publicKey;
 
-        const shares = secrets.share(privateKey, 3, 2);
+        const privateKeyArrayBuffer = await window.crypto.subtle.exportKey("raw", keypair.privateKey);
+        const privateKey = Buffer.from(privateKeyArrayBuffer); 
+
+        const shares = secrets.share(privateKey.toString("hex"), 3, 2);
 
         await prisma.user.create({
           data: {
@@ -93,7 +95,7 @@ export const Authconfig: NextAuthOptions = {
             sub: account.providerAccountId,
             solwallet: {
               create: {
-                publickey: publicKey,
+                publickey: publicKey.toString(),
                 share1: shares[0],
                 share2: shares[1],
                 share3: shares[2],

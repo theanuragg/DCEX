@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import  Appbar  from "./Components/Appbar";
+import  Appbar  from "./Components/Landing/Appbar";
 import { Providers } from "./provider";
 import { ThemeProvider } from "./Components/themeProvider";
 
@@ -18,6 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+  
     <html lang="en">
       <body className={inter.className} >
         <ThemeProvider attribute="class" defaultTheme="dark">
